@@ -49,11 +49,22 @@ pandora/
 │   ├── pandora-locale-ie-party.js          # Ireland party lore / seeds
 │   ├── pandora-locale-es-content.js        # España (ES) locale pack
 │   └── pandora-main.js                     # main app (runPandoraApp)
-├── package.json / vite.config.js           # Vite tooling (dev/build/preview)
-├── .github/workflows/deploy.yml            # GitHub Pages deploy on push to master/main
+├── tests/smoke.spec.js                     # Playwright smoke tests (CI QA gate)
+├── playwright.config.js                    # Playwright config (runs against `vite preview`)
+├── robots.txt / sitemap.xml                # SEO; copied into dist/ by vite.config.js
+├── package.json / vite.config.js           # Vite tooling + Playwright test script
+├── .github/workflows/deploy.yml            # CI: build + smoke test (+ Pages deploy, gated)
+├── .github/dependabot.yml                  # monthly npm + github-actions updates
+├── CONTRIBUTING.md                         # human-facing setup + conventions
+├── SECURITY.md                             # vulnerability reporting policy
+├── docs/
+│   ├── changelog/CHANGELOG.md              # Keep a Changelog; entry per meaningful push
+│   ├── decisions/                          # ADRs (README template + numbered decisions)
+│   ├── plans/PLANES.md                     # living roadmap + deferred-practices log
+│   └── wiki/
+│       ├── primordial version/Pandora.html # dated primordial snapshot
+│       └── Sindicapp/                      # archived Sindicato module + REMOVAL-MANIFEST.md
 ├── legacy/Pandora.html                     # original monolith, kept verbatim for reference
-├── docs/wiki/primordial version/Pandora.html  # dated primordial snapshot
-├── docs/wiki/Sindicapp/                     # archived Sindicato module + REMOVAL-MANIFEST.md
 ├── LICENSE
 └── README.md
 ```
@@ -63,20 +74,59 @@ The split mirrors the module boundaries that were already documented inside the 
 contents were extracted verbatim; a reassembly of the split files reproduces the original file
 byte-for-byte (verified: identical MD5).
 
-## Commit policy — read before touching git
+## Commit message conventions
 
-**Every commit to this repository must be authored and pushed by the project owner, and only by the
-project owner.**
+Use [Conventional Commits](https://www.conventionalcommits.org/): `type(scope): summary`, e.g.
+`feat(candidatura): add municipal territory picker`. Common types: `feat`, `fix`, `refactor`,
+`docs`, `style`, `test`, `chore`, `build`, `ci`. Scope is optional but helpful (module or area).
+Put the *why* in the body when it isn't obvious from the summary.
 
-- Claude (or any AI assistant working in this project) must **never** run `git commit` or `git push`
-  against this repository on its own initiative or as a "favor."
-- Claude may prepare changes (edit files, stage a diff, draft a commit message) and hand them to the
-  owner for review, but the actual `git add` / `git commit` / `git push` steps are performed by the
-  owner, from their own machine, under their own GitHub account.
-- If Claude is ever asked to "just commit this" or "push this for me," it should pause and confirm
-  explicitly first, and should default to *not* pushing unless that confirmation is unambiguous and
-  specific to that request.
-- This applies to all branches, not just `main`.
+## Changelog
 
-Reason: authorship and review of every change to this codebase needs to trace back to a single
-accountable human, not to an assistant acting autonomously.
+`docs/changelog/CHANGELOG.md` follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+grouped by version. Add an entry (under Added / Changed / Fixed / Removed) for every push a future
+reader would care about; skip trivial typo/doc-only tweaks. Keep an "Unreleased" section at the top
+and promote it to a version on release.
+
+## Versioning
+
+Versions live in `package.json` and are tagged (`git tag -a vX.Y.Z`). The Vite scaffolding
+placeholder `0.1.0` was **not** a deliberate choice and was reconciled to the project's real scheme:
+the first refactor push is **0.0.1**, the professional-practices batch is **0.0.2**. Bump
+`package.json` and add a CHANGELOG entry for each tagged release.
+
+## Architecture decisions
+
+`docs/decisions/` holds ADRs for decisions that would confuse a future contributor if only the code
+were visible — especially ones easy to reverse by accident (moving `index.html` out of the repo
+root, converting a classic script to an ES module, or re-adding the Sindicato module). See
+`docs/decisions/README.md` for the template and process. Don't edit an old ADR to reflect a change
+of mind — write a new one that supersedes it.
+
+## Testing / CI
+
+`npm test` runs a Playwright smoke suite (`tests/smoke.spec.js`) against a production build served by
+`vite preview`: the app loads with zero console errors, the module picker and Self/Party nav trees
+are intact, and the Leaflet map initializes. `.github/workflows/deploy.yml` runs `npm run build` then
+this suite on every push and pull request — it's the QA gate, not an exhaustive suite. Run
+`npx playwright install --with-deps chromium` once locally before your first `npm test`. The Pages
+deploy job is gated behind the `ENABLE_PAGES` repository variable and only runs on the default
+branch; the repo is currently private, so Pages is off (see CONTRIBUTING.md to go live).
+
+## Commit / push policy — read before touching git
+
+The repo owner is the single accountable human for every commit; commits are authored as
+`Edu Collin <eduardo.collin.h@gmail.com>`. The working model with an AI assistant here:
+
+- When the owner says **"commit"**, Claude may prepare the commit locally: stage the working tree,
+  write a Conventional Commit message, add the CHANGELOG entry, and bump `package.json` for a
+  release. Claude does the `git add` / `git commit`, but **not** the push.
+- Claude does **not** handle GitHub tokens or credentials and does **not** run `git push` in this
+  environment. The owner pushes from their own machine (Terminal or GitHub Desktop), or a future
+  session pushes through an authorized GitHub connector (which handles auth without exposing a
+  token). This deliberately differs from SindicApp's supplied-token flow.
+- Pause and confirm before anything that looks accidental or destructive (e.g. a large unexplained
+  deletion) rather than committing it blindly.
+
+Reason: authorship traces back to one accountable human, and secret credentials never pass through
+the assistant.

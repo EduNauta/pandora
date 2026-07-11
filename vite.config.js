@@ -17,6 +17,10 @@ function copyClassicAssets() {
       cpSync(resolve(__dirname, 'js'), resolve(__dirname, 'dist', 'js'), {
         recursive: true,
       });
+      /* robots.txt / sitemap.xml must be served from the site root; with
+         publicDir disabled, Vite won't copy them on its own. */
+      cpSync(resolve(__dirname, 'robots.txt'), resolve(__dirname, 'dist', 'robots.txt'));
+      cpSync(resolve(__dirname, 'sitemap.xml'), resolve(__dirname, 'dist', 'sitemap.xml'));
     },
   };
 }

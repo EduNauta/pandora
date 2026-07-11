@@ -1,8 +1,9 @@
-name: Deploy to GitHub Pages
+name: Build, test & deploy to GitHub Pages
 
 on:
   push:
     branches: [master, main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -11,7 +12,10 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  # Scoped per-ref: keeps deploys of the same branch from overlapping,
+  # without cancelling unrelated PR runs (e.g. Dependabot opening several
+  # PRs at once shouldn't cancel the actual main-branch deploy).
+  group: pages-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -25,13 +29,26 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      # Smoke-test the actual build output (served via `vite preview`, same
+      # as production) before it's allowed to deploy. See tests/smoke.spec.js.
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      # Pages steps only run on a push to the default branch AND when Pages is
+      # switched on via the ENABLE_PAGES repository variable. The repo is
+      # currently private, so Pages is off; the build + smoke test above still
+      # run on every push and PR as the QA gate. To go live: make the repo
+      # public (or upgrade), enable Pages (Settings → Pages → Source: GitHub
+      # Actions), and set repo variable ENABLE_PAGES=true.
       - uses: actions/configure-pages@v5
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && vars.ENABLE_PAGES == 'true'
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && vars.ENABLE_PAGES == 'true'
         with:
           path: dist
 
   deploy:
     needs: build
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && vars.ENABLE_PAGES == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
