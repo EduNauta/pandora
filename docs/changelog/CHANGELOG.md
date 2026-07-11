@@ -8,6 +8,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), grouped
 
 Nothing pending.
 
+## v0.0.4 — 2026-07-11 — Fix map-init console error
+
+### Fixed
+- `initOpenStreetMap` referenced an undeclared `osmButton`, throwing `ReferenceError: osmButton is not defined` on every map load — a latent bug carried over verbatim from the original single-file app and surfaced by the new smoke test. Because the function is `async`, the throw became an unhandled promise rejection that also aborted the map's click-handler wiring. Replaced it with a guarded lookup of the OpenStreetMap provider button(s) (`.map-api-button[data-api="openstreetmap"]`), matching how those buttons are handled elsewhere in the app.
+
+### Changed
+- `package.json` version bumped to `0.0.4`.
+
 ## v0.0.3 — 2026-07-11 — CI lockfile fix
 
 ### Fixed

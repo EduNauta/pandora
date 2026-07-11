@@ -5631,7 +5631,7 @@
                     subdomains: 'abc'
                 }).addTo(currentMap);
                 mapInitialized = true;
-                if (osmButton) osmButton.classList.add('active');
+                document.querySelectorAll('.map-api-button[data-api="openstreetmap"]').forEach((btn) => btn.classList.add('active'));
                 if (typeof window.cartagramaSetMapContext === 'function') {
                     window.cartagramaSetMapContext(currentMap, 'openstreetmap');
                 }

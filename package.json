@@ -1,6 +1,6 @@
 {
   "name": "pandora",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Red social para partidos políticos — mapa geográfico, partidos, candidaturas y colectivos en el navegador.",
   "type": "module",
   "private": true,
