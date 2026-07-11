@@ -8,6 +8,15 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), grouped
 
 Nothing pending.
 
+## v0.0.5 — 2026-07-11 — Dependency updates
+
+### Changed
+- Bumped Vite to `^8.1.4` (major, from `^6.3.5`). Verified the production build is unaffected — the app's classic scripts aren't part of Vite's module graph, so the major upgrade is transparent here.
+- Bumped GitHub Actions used in the workflow: `checkout` 4→7, `setup-node` 4→6, `configure-pages` 5→6, `upload-pages-artifact` 3→5, `deploy-pages` 4→5. Clears the "Node 20 deprecated" CI warning.
+- `package.json` version bumped to `0.0.5`.
+
+These apply the six Dependabot pull requests directly on `main`; Dependabot closes its own PRs automatically once it sees the versions already updated.
+
 ## v0.0.4 — 2026-07-11 — Fix map-init console error
 
 ### Fixed
