@@ -7,6 +7,11 @@ updates:
     open-pull-requests-limit: 5
     commit-message:
       prefix: "build"
+    # Bundle all npm updates into a single pull request instead of one per package.
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -14,3 +19,8 @@ updates:
       interval: "monthly"
     commit-message:
       prefix: "ci"
+    # Bundle all GitHub Actions updates into a single pull request.
+    groups:
+      github-actions:
+        patterns:
+          - "*"

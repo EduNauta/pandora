@@ -95,6 +95,11 @@ placeholder `0.1.0` was **not** a deliberate choice and was reconciled to the pr
 the first refactor push is **0.0.1**, the professional-practices batch is **0.0.2**. Bump
 `package.json` and add a CHANGELOG entry for each tagged release.
 
+Most commits are **not** releases. The default is to commit and push freely without touching the
+version or adding a tag, logging anything notable under the CHANGELOG's **Unreleased** section. A
+release is cut deliberately: bump `package.json`, move the Unreleased notes under a new `vX.Y.Z`
+heading, and tag it.
+
 ## Architecture decisions
 
 `docs/decisions/` holds ADRs for decisions that would confuse a future contributor if only the code
@@ -118,9 +123,12 @@ branch; the repo is currently private, so Pages is off (see CONTRIBUTING.md to g
 The repo owner is the single accountable human for every commit; commits are authored as
 `Edu Collin <eduardo.collin.h@gmail.com>`. The working model with an AI assistant here:
 
-- When the owner says **"commit"**, Claude may prepare the commit locally: stage the working tree,
-  write a Conventional Commit message, add the CHANGELOG entry, and bump `package.json` for a
-  release. Claude does the `git add` / `git commit`, but **not** the push.
+- When the owner says **"commit"**, Claude prepares a *plain* commit: stage the working tree, write
+  a Conventional Commit message, and log anything notable under the CHANGELOG's **Unreleased**
+  section — **without** bumping `package.json` or creating a tag. When the owner says **"release"**
+  (or "cut vX.Y.Z"), Claude additionally bumps `package.json`, promotes the Unreleased notes to a
+  `vX.Y.Z` heading, and creates the tag. Either way Claude does the `git add` / `git commit`, but
+  **not** the push.
 - Claude does **not** handle GitHub tokens or credentials and does **not** run `git push` in this
   environment. The owner pushes from their own machine (Terminal or GitHub Desktop), or a future
   session pushes through an authorized GitHub connector (which handles auth without exposing a

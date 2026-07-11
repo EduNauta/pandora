@@ -6,7 +6,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), grouped
 
 ## Unreleased
 
-Nothing pending.
+### Changed
+- Dependabot now **groups** updates: all npm bumps arrive in one pull request and all GitHub Actions bumps in another, instead of one PR per dependency — cuts down the PR clutter from the first run.
+- Documented the commit-vs-release convention in `CLAUDE.md`: ordinary commits don't bump the version or add a tag; versions are cut deliberately as releases, with notable changes accumulating under "Unreleased" until then.
 
 ## v0.0.5 — 2026-07-11 — Dependency updates
 
