@@ -8,6 +8,14 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), grouped
 
 Nothing pending.
 
+## v0.0.3 — 2026-07-11 — CI lockfile fix
+
+### Fixed
+- Committed `package-lock.json` so CI's `npm ci` step runs — the v0.0.2 workflow failed in ~12s because no lockfile had been committed.
+
+### Changed
+- `package.json` version bumped to `0.0.3`.
+
 ## v0.0.2 — 2026-07-11 — Professional practices batch
 
 Brings the repo's process up to standard practice, mirroring the workflow established on the sibling [SindicApp](https://github.com/EduNauta/sindicapp) project.
