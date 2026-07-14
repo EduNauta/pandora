@@ -473,22 +473,22 @@
                     children: [
                         { id: 'party-structure', label: 'Estructura del partido' },
                         { id: 'contact-list', label: 'Lista de contactos' },
-                        { id: 'individual-scoreboard', label: 'Marcador individual' },
-                        {
-                            id: 'structure-teams',
-                            label: 'Equipos',
-                            children: [
-                                { id: 'team-ideology', label: 'Ideología' },
-                                { id: 'team-it', label: 'Informática' },
-                                { id: 'team-legal', label: 'Legal' },
-                                { id: 'team-administration', label: 'Administración' },
-                                { id: 'team-accounting', label: 'Contabilidad' },
-                                { id: 'team-communication', label: 'Comunicación' },
-                                { id: 'team-campaigning', label: 'Campaña' },
-                                { id: 'team-policy', label: 'Política' },
-                                { id: 'team-events', label: 'Eventos' }
-                            ]
-                        }
+                        { id: 'individual-scoreboard', label: 'Marcador individual' }
+                    ]
+                },
+                {
+                    id: 'structure-teams',
+                    label: 'Equipos',
+                    children: [
+                        { id: 'team-ideology', label: 'Ideología' },
+                        { id: 'team-it', label: 'Informática' },
+                        { id: 'team-legal', label: 'Legal' },
+                        { id: 'team-administration', label: 'Administración' },
+                        { id: 'team-accounting', label: 'Contabilidad' },
+                        { id: 'team-communication', label: 'Comunicación' },
+                        { id: 'team-campaigning', label: 'Campaña' },
+                        { id: 'team-policy', label: 'Política' },
+                        { id: 'team-events', label: 'Eventos' }
                     ]
                 },
                 {

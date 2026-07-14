@@ -892,22 +892,22 @@
                                 { id: 'party-structure', label: 'Party Structure' },
                                 { id: 'candidacy', label: 'Candidacy' },
                                 { id: 'contact-list', label: 'Contact list' },
-                                { id: 'individual-scoreboard', label: 'Individual Scoreboard' },
-                                {
-                                    id: 'structure-teams',
-                                    label: 'Teams',
-                                    children: [
-                                        { id: 'team-ideology', label: 'Ideology' },
-                                        { id: 'team-it', label: 'IT' },
-                                        { id: 'team-legal', label: 'Legal' },
-                                        { id: 'team-administration', label: 'Administration' },
-                                        { id: 'team-accounting', label: 'Accounting' },
-                                        { id: 'team-communication', label: 'Communication' },
-                                        { id: 'team-campaigning', label: 'Campaigning' },
-                                        { id: 'team-policy', label: 'Policy' },
-                                        { id: 'team-events', label: 'Events' }
-                                    ]
-                                }
+                                { id: 'individual-scoreboard', label: 'Individual Scoreboard' }
+                            ]
+                        },
+                        {
+                            id: 'structure-teams',
+                            label: 'Teams',
+                            children: [
+                                { id: 'team-ideology', label: 'Ideology' },
+                                { id: 'team-it', label: 'IT' },
+                                { id: 'team-legal', label: 'Legal' },
+                                { id: 'team-administration', label: 'Administration' },
+                                { id: 'team-accounting', label: 'Accounting' },
+                                { id: 'team-communication', label: 'Communication' },
+                                { id: 'team-campaigning', label: 'Campaigning' },
+                                { id: 'team-policy', label: 'Policy' },
+                                { id: 'team-events', label: 'Events' }
                             ]
                         },
                         {
