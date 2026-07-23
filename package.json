@@ -1,7 +1,7 @@
 {
   "name": "pandora",
   "version": "0.0.5",
-  "description": "Red social para partidos políticos — mapa geográfico, partidos, candidaturas y colectivos en el navegador.",
+  "description": "Prototipo de interfaz web con mapa interactivo — módulos de demostración en el navegador.",
   "type": "module",
   "private": true,
   "license": "MIT",

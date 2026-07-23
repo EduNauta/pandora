@@ -2,9 +2,9 @@
 
 # Pandora
 
-**Prototipo de interfaz web con mapa interactivo**
+**Red social para partidos políticos**
 
-Aplicación web estática de una sola página: mapa geográfico como fondo de navegación, con módulos de datos de demostración en el navegador — sin servidor propio.
+Aplicación web estática: mapa geográfico, partidos, candidaturas, colectivos y herramientas de coordinación en el navegador — sin servidor propio.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/es/docs/Web/HTML)
@@ -19,9 +19,20 @@ Aplicación web estática de una sola página: mapa geográfico como fondo de na
 
 ## Descripción
 
-Pandora es un **prototipo funcional** de interfaz web *geography-first*: un mapa interactivo (Leaflet + OpenStreetMap) es el fondo de la aplicación, y el territorio guía la navegación entre los distintos módulos de la interfaz.
+Pandora es un **prototipo funcional** de red social para partidos políticos. Parte de un enfoque *geography-first*: un mapa interactivo (Leaflet + OpenStreetMap) es el fondo de la aplicación, y el territorio guía la navegación entre partidos, candidaturas, colectivos y herramientas de coordinación laboral.
+
+La interfaz se organiza en módulos accesibles desde el selector lateral y sus árboles de navegación:
+
+| Módulo | Rol |
+|--------|-----|
+| **Personal** | Tu cuenta personal: tu partido, tu centro de trabajo y tus secciones de partido |
+| **Partido** | Espacios de partido organizados en Talk / Info / Admin |
+| **Candidaturas** | Candidaturas por nivel (autonómico / CCAA y municipal), con selectores territoriales |
+| **Colectivos** | Colectivos por área/tema, con listas, representación y coordinación general |
 
 Al abrir la web, el **mapa OpenStreetMap** (Leaflet) carga como fondo interactivo. El panel lateral permite alternar entre barra de navegación y mapa a pantalla completa.
+
+> **Nota:** El módulo **Sindicato** se retiró de la app el 2026-07-11 y ahora vive como el proyecto independiente **SindicApp** ("mitosis"). El módulo y su manifiesto de retirada quedan archivados en `docs/wiki/Sindicapp/`.
 
 ---
 
@@ -33,6 +44,13 @@ Al abrir la web, el **mapa OpenStreetMap** (Leaflet) carga como fondo interactiv
 - **Fronteras administrativas**: CCAA, provincias, comarcas, municipios, NUTS, Irlanda, países, etc.
 - Clic en territorio o pin para abrir perfiles y espacios
 - Locales **España (Catalunya)** e **Irlanda** con datos de demostración
+
+### Módulos
+
+- **Personal** — cuenta personal vinculada a tu partido y tu centro de trabajo
+- **Partido** — módulos Talk / Info / Admin por partido
+- **Candidaturas** — niveles autonómico (CCAA) y municipal con selección de territorio
+- **Colectivos** — filtro por áreas, listado, representación y coordinación general
 
 ### Otros
 
@@ -107,14 +125,14 @@ pandora/
 │   ├── cartagrama-territories-bundle.js    # Fronteras / territorios (GeoJSON embebido)
 │   ├── pandora-locale-geo-data.js          # Árbol territorial ES + IE
 │   ├── pandora-locale-ie-content.js        # Locale pack Irlanda (EN)
-│   ├── pandora-locale-ie-party.js          # Datos de demo de Irlanda
+│   ├── pandora-locale-ie-party.js          # Datos de partidos de Irlanda
 │   ├── pandora-locale-es-content.js        # Locale pack España (ES)
 │   └── pandora-main.js                     # Aplicación principal (runPandoraApp)
 ├── package.json                            # Scripts npm + dependencia de Vite
 ├── vite.config.js                          # Configuración de Vite
 ├── .github/workflows/deploy.yml            # CI: build + deploy a GitHub Pages
 ├── legacy/Pandora.html                     # Versión monolítica original (solo referencia)
-├── docs/                                   # Notas internas, decisiones y wiki (no forma parte del runtime)
+├── docs/wiki/Sindicapp/                     # Módulo Sindicato archivado + manifiesto de retirada
 ├── LICENSE                                 # MIT
 └── README.md                               # Este documento
 ```
@@ -140,7 +158,7 @@ Pandora es un **prototipo embrionario**. Muchas funciones son interfaces de demo
 
 - [x] Mapa OpenStreetMap con carga automática
 - [x] Fronteras administrativas
-- [x] Módulos de UI + demo
+- [x] Módulos Personal, Partido, Candidaturas y Colectivos (UI + demo)
 - [x] Bilingüe ES / EN
 - [ ] Backend, autenticación real y base de datos
 - [ ] Notificaciones push y PWA
@@ -148,10 +166,11 @@ Pandora es un **prototipo embrionario**. Muchas funciones son interfaces de demo
 
 ---
 
-## Privacidad
+## Privacidad y uso responsable
 
 - Los datos de demo se almacenan **solo en tu navegador** (`localStorage`)
-- No hay servidor que reciba datos
+- Los flujos sociales son una **demostración**; no hay servidor que reciba datos
+- El uso legal y responsable de la plataforma es responsabilidad de cada persona usuaria
 
 ---
 
@@ -163,6 +182,6 @@ Este proyecto está bajo la licencia **MIT**. Ver el archivo `LICENSE` para más
 
 <div align="center">
 
-**Prototipo de interfaz geoespacial — mapa como capa base de navegación.**
+**Infraestructura neutral para que la militancia se organice con herramientas geográficas compartidas.**
 
 </div>
